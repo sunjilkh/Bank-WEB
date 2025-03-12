@@ -31,9 +31,82 @@ document.addEventListener('keydown', function (e) {
 });
 
 ///////////////////////////////////
-///////////////////////////////////
-///////////////////////////////////
+// Button Controller
+const btnScrolTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+// console.log(section1.getBoundingClientRect());
+btnScrolTo.addEventListener('click', function (e) {
+  // const scrl = section1.getBoundingClientRect();
+  // console.log(e.target.getBoundingClientRect());
+  // console.log(
+  //   'height/width',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 
+///////////////////////////////////
+//Smooth scrolling
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', e => {
+//     e.preventDefault();
+//     const id = el.getAttribute('href');
+//     // console.log(id);
+//     const dest = document.querySelector(id);
+//     dest.scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//1. Add event listener to common parent element
+//2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
+  // console.log(e.target);
+
+  //Matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    // console.log(id);
+    const dest = document.querySelector(id);
+    dest.scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+///////////////////////////////////
+//Dom Traversing
+const h1 = document.querySelector('h1');
+
+//going downwards: child
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'white';
+
+//Going upwards
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-primary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+//Selecting sibling
+//only direct sigbing accessible
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(el => {
+  if (el !== h1) el.style.transform = 'scale(0.8)';
+});
+
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
 
 //Introducing DOM
 /*
@@ -108,22 +181,6 @@ logo.classList.toggle();
 logo.classList.contains();
 */
 
-const btnScrolTo  = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-// console.log(section1.getBoundingClientRect());
-btnScrolTo.addEventListener(
-  'click', function(e){
-    // const scrl = section1.getBoundingClientRect();
-    // console.log(e.target.getBoundingClientRect());
-    // console.log(
-    //   'height/width',
-    //   document.documentElement.clientHeight,
-    //   document.documentElement.clientWidth
-    // );
-    section1.scrollIntoView({behavior: 'smooth'});
-  }
-)
-
 //Adding event listner
 // const h1 = document.querySelector('h1');
 // h1.addEventListener('mouseenter', function(e){
@@ -136,3 +193,38 @@ btnScrolTo.addEventListener(
 //   }, 2000)
 //   }
 // )
+
+//rgb(255,255,255)
+/*
+const ranInt = (max, min) => Math.floor(Math.random() * (max - min) + min);
+
+const ranColor = () =>
+  `rgb(${ranInt(0, 255)},${ranInt(0, 255)},${ranInt(0, 255)})`;
+console.log(ranColor());
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log('Link here', e.target, e.currentTarget);
+  this.style.backgroundColor = ranColor();
+
+  // //Stop propagation
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log('Link here');
+  console.log('Nav_Link here', e.target, e.currentTarget);
+
+  this.style.backgroundColor = ranColor();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log('Link here');
+  console.log('Nav here', e.target, e.currentTarget);
+  console.log(this === e.currentTarget);
+
+  this.style.backgroundColor = ranColor();
+});
+*/
