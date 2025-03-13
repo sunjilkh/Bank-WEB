@@ -104,6 +104,26 @@ console.log(h1.parentElement.children);
   if (el !== h1) el.style.transform = 'scale(0.8)';
 });
 
+//Tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+
+tabContainer.addEventListener('click', (e)=>{
+  const clicked  = e.target.closest('.operations__tab');
+  
+  //guard clause
+  if(!clicked) return;
+
+  //Activate tab
+  tabs.forEach((el) =>el.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active');
+
+  //Activate content area
+  tabContent.forEach((el) => el.classList.remove('operations__content--active'));
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
+
 ///////////////////////////////////
 ///////////////////////////////////
 ///////////////////////////////////
