@@ -7,6 +7,11 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -73,41 +78,9 @@ document.querySelector('.nav__links').addEventListener('click', e => {
   }
 });
 
-///////////////////////////////////
-//Dom Traversing
-const h1 = document.querySelector('h1');
 
-//going downwards: child
-console.log(h1.querySelectorAll('.highlight'));
-console.log(h1.childNodes);
-console.log(h1.children);
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'white';
-
-//Going upwards
-console.log(h1.parentNode);
-console.log(h1.parentElement);
-
-h1.closest('.header').style.background = 'var(--gradient-primary)';
-h1.closest('h1').style.background = 'var(--gradient-primary)';
-
-//Selecting sibling
-//only direct sigbing accessible
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
-
-console.log(h1.previousSibling);
-console.log(h1.nextSibling);
-
-console.log(h1.parentElement.children);
-[...h1.parentElement.children].forEach(el => {
-  if (el !== h1) el.style.transform = 'scale(0.8)';
-});
 
 //Tabbed component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabContainer = document.querySelector('.operations__tab-container');
-const tabContent = document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', (e)=>{
   const clicked  = e.target.closest('.operations__tab');
@@ -123,6 +96,38 @@ tabContainer.addEventListener('click', (e)=>{
   tabContent.forEach((el) => el.classList.remove('operations__content--active'));
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
+
+//Menu fade animation
+
+const handleHover = function(e){
+  if(e.target.classList.contains('nav__link')){
+    const linked = e.target;
+    const siblings =  linked.closest('.nav').querySelectorAll('.nav__link');
+    const logo = linked.closest('.nav').querySelector('img');
+  
+    siblings.forEach((el) =>{
+      if(el !== linked) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+    }
+}
+nav.addEventListener('mouseover', (e)=>{
+  handleHover.call(0.5, e);
+});
+//bind returns a function
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//Sticky navigation
+const initialCoords = section1.getBoundingClientRect();
+window.addEventListener('scroll', function(){
+  console.log(this.window.scrollY);
+  if(window.scrollY > initialCoords.top){
+    nav.classList.add('sticky');
+  }else{
+    nav.classList.remove('sticky');
+  }
+})
+
 
 ///////////////////////////////////
 ///////////////////////////////////
@@ -246,5 +251,39 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   console.log(this === e.currentTarget);
 
   this.style.backgroundColor = ranColor();
+});
+*/
+
+///////////////////////////////////
+
+//Dom Traversing
+/*
+const h1 = document.querySelector('h1');
+
+//going downwards: child
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'white';
+
+//Going upwards
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-primary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+//Selecting sibling
+//only direct sigbing accessible
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(el => {
+  if (el !== h1) el.style.transform = 'scale(0.8)';
 });
 */
