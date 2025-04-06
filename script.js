@@ -143,29 +143,10 @@ const imgObs = new IntersectionObserver( loadImg, {
 
 imgTargets.forEach( img=> imgObs.observe(img));
 
-// //Slider 
-// const slide = document.querySelectorAll('.slide');
-// const btnLeft = document.querySelectorAll('.slider__btn--left');
-// const btnRight = document.querySelectorAll('.slider__btn--right');
-
-// let currentSlide = 0;
-// const maxSlide = slide.length;
-
-// const  slider = document.querySelector('.slider');
-// slider.style.transform = 'scale(0.35) translateX(-800px)';
-// slider.style.overflow = 'visible';
-// slide.forEach((s,i) => (s.style.transform = 
-// `translateX(${100 * i}%)`));
-
-// // next slide
-// btnRight.addEventListener('click', function(){
-//   currentSlide++;
-
-//   slide.forEach((s,i) => s.style.transform = 
-//   `translateX(${100 * (i - currentSlide)}%)` );
-// });
 ///////////////////////////////////////////////
+ //Slider 
 
+ const slide = function(){
 
 const slides = document.querySelectorAll('.slide');
 const butnLeft = document.querySelector('.slider__btn--left');
@@ -175,8 +156,8 @@ let curSlide = 0;
 const maxSlide = slides.length;
 
 const slider = document.querySelector('.slider');
-// slider.style.transform = 'scale(0.4) translateX(-800px)';
-// slider.style.overflow = 'visible';
+
+//Functions
 const createDots  = function(){
   slides.forEach(function(_,i){
     dotContain.insertAdjacentHTML('beforeend',
@@ -185,7 +166,6 @@ const createDots  = function(){
   });
 }
 
-createDots();
 const selectActivateDot = function(slide){
 document.querySelectorAll('.dots__dot').forEach(
   dot => dot.classList.remove('dots__dot--active'));
@@ -199,8 +179,7 @@ const goTo = function(curSlide){
   );
 }
 
-goTo(0);
-selectActivateDot(0);
+
 
 //next Slide
 const nextSlide = function(){
@@ -220,6 +199,15 @@ const previouSlide = function(){
   selectActivateDot(curSlide);
 }
 
+
+const init  = function(){
+  goTo(0);
+  createDots();
+  selectActivateDot(0);
+}
+init();
+
+//Events
 butnRight.addEventListener('click', nextSlide);
 butnLeft.addEventListener('click', previouSlide);
 
@@ -238,7 +226,8 @@ dotContain.addEventListener('click', function(e){
     selectActivateDot(curSlide)
   }
 });
-
+};
+slide();
 
 
 //Menu fade animation
