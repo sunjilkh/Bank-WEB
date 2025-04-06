@@ -190,7 +190,7 @@ const selectActivateDot = function(slide){
 document.querySelectorAll('.dots__dot').forEach(
   dot => dot.classList.remove('dots__dot--active'));
 
-  document.querySelector(`dots__dot[data-slide ="${slide}"]`).classList.add('dots__dot--active');
+  document.querySelector(`.dots__dot[data-slide ="${slide}"]`).classList.add('dots__dot--active');
 };
 //go to slide
 const goTo = function(curSlide){
@@ -200,7 +200,7 @@ const goTo = function(curSlide){
 }
 
 goTo(0);
-// selectActivateDot(0);
+selectActivateDot(0);
 
 //next Slide
 const nextSlide = function(){
